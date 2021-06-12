@@ -36,6 +36,16 @@ user_avatar(user) # or any other object
 
 The gem  trys the following methods on the object to use for initials generation: `name`, `fullname`, `email`, in this order.
 
+### Options
+
+You can pass the following options into `Initials.svg` and the `user_avatar` helper:
+
+```rb
+user_avatar("", size: 96)
+```
+
+This sets `width` and `height` in the SVG. Note that you can also use CSS to make the SVG have different sizes in different places of your HTML, of course.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
