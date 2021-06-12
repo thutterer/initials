@@ -30,7 +30,7 @@ No special configuration is required to work with Ruby on Rails, but for your co
 
 ```ruby
 def user_avatar(name, **options)
-  Initials.svg(name, options)
+  Initials.svg(name, **options)
 end
 ```
 
