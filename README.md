@@ -1,4 +1,4 @@
-# Initials
+# ![demo](demo.png) Initials
 
 Don't want to implement user avatar uploads but still have basic avatars to distinguish users and brigthen up your app?
 
