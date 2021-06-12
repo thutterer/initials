@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["tohu@tuta.io"]
 
   spec.summary       = "Simple SVG avatars"
-  spec.description   = "Render colorful user avatars as inline SVGs. No dependencies."
+  spec.description   = "Use colorful SVGs as user avatars in any Ruby and Rails application."
   spec.homepage      = "https://github.com/thutterer/initials"
   spec.license       = "MIT"
 

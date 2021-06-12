@@ -1,5 +1,9 @@
 # Initials
 
+Don't want to implement user avatar uploads but still have basic avatars to distinguish users and brigthen up your app?
+
+Use colorful SVGs as user avatars in any Ruby and Rails application.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,29 +26,31 @@ Call `Initials.svg("Morty Smith")` anywhere to get a colorful initials avatar SV
 
 ### Rails
 
-**Coming soon:**
+No special configuration is required to work with Ruby on Rails, but for your convinience, you can add this to your `app/helpers/application_helper.rb`:
 
-In Rails you can also use this helper:
 ```ruby
-user_avatar(user.fullname) # or any other string
+def user_avatar(name, **options)
+  Initials.svg(name, options)
+end
 ```
 
-You can also use this shorthand:
-```ruby
-user_avatar(user) # or any other object
+Now you can create SVGs in all views:
+
+```erb
+<%= user_avatar(current_user.name) %>
 ```
 
-The gem  trys the following methods on the object to use for initials generation: `name`, `fullname`, `email`, in this order.
+Initials automatically marks its created SVG strings as `html_safe`.
 
 ### Options
 
-You can pass the following options into `Initials.svg` and the `user_avatar` helper:
+You can pass the following options into `Initials.svg` or your `user_avatar` helper:
 
 ```rb
-user_avatar("", size: 96)
+user_avatar(current_user.name, size: 96)
 ```
 
-This sets `width` and `height` in the SVG. Note that you can also use CSS to make the SVG have different sizes in different places of your HTML, of course.
+This sets `width` and `height` to `96px` in the SVG. Of course, you can also use CSS to make the SVG have different sizes in different places of your HTML.
 
 ## Development
 

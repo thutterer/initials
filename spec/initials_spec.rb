@@ -4,6 +4,6 @@ RSpec.describe Initials do
   end
 
   it "does something useful" do
-    expect(false).to eq(true)
+    expect(Initials.svg("Thomas Hutterer")).to match(/^<svg .*TH<\/text><\/svg>/)
   end
 end

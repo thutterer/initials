@@ -3,6 +3,7 @@ module Initials
     attr_reader :name, :size
 
     def initialize(name, size: 32)
+      raise Initials::Error.new("Name is not a string or empty") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
       @name = name
       @size = size
     end
@@ -21,7 +22,8 @@ module Initials
     end
 
     def fill
-      "#111111" # TODO
+      hue = name.split("").sum { |c| c.ord } % 360
+      "hsl(#{hue}, 40%, 40%)"
     end
 
     def font_size
