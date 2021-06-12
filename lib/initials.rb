@@ -5,6 +5,6 @@ module Initials
   class Error < StandardError; end
 
   def self.svg(name, **options)
-    SVG.new(name, options).to_s
+    SVG.new(name, **options).to_s
   end
 end
