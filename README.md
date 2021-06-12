@@ -1,9 +1,5 @@
 # Initials
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/initials`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +18,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Call `Initials.svg("Morty Smith")` anywhere to get a colorful initials avatar SVG as string.
+
+### Rails
+
+**Coming soon:**
+
+In Rails you can also use this helper:
+```ruby
+user_avatar(user.fullname) # or any other string
+```
+
+You can also use this shorthand:
+```ruby
+user_avatar(user) # or any other object
+```
+
+The gem  trys the following methods on the object to use for initials generation: `name`, `fullname`, `email`, in this order.
 
 ## Development
 
@@ -32,7 +44,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/initials.
+Bug reports and pull requests are welcome on GitHub at https://github.com/thutterer/initials.
 
 ## License
 
