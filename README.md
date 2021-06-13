@@ -1,4 +1,4 @@
-# ![demo](demo.png) Initials
+# ![demo](demo.png) Initials [![Maintainability](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/maintainability)](https://codeclimate.com/github/thutterer/initials/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/test_coverage)](https://codeclimate.com/github/thutterer/initials/test_coverage)
 
 Don't want to implement user avatar uploads but still have basic avatars to distinguish users and brigthen up your app?
 
