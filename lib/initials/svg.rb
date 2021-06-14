@@ -12,7 +12,7 @@ module Initials
       svg = [
         "<svg width='#{size}' height='#{size}'>",
           "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}' />",
-          "<text x='50%' y='50%' fill='white' fill-opacity='0.75' dominant-baseline='central' text-anchor='middle' style='font: bold #{font_size}px sans-serif;'>",
+          "<text x='50%' y='50%' fill='white' fill-opacity='0.75' dominant-baseline='central' text-anchor='middle' style='font: bold #{font_size}px sans-serif; user-select: none;'>",
             "#{initials}",
           "</text>",
         "</svg>"
