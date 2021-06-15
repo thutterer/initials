@@ -1,8 +1,10 @@
-# ![demo](demo.png) Initials [![Maintainability](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/maintainability)](https://codeclimate.com/github/thutterer/initials/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/test_coverage)](https://codeclimate.com/github/thutterer/initials/test_coverage)
+# Initials [![Maintainability](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/maintainability)](https://codeclimate.com/github/thutterer/initials/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/fb865ec4adcd0671dc48/test_coverage)](https://codeclimate.com/github/thutterer/initials/test_coverage)
 
 Don't want to implement user avatar uploads but still have basic avatars to distinguish users and brigthen up your app?
 
 Use colorful SVGs as user avatars in any Ruby and Rails application.
+
+![demo](demo.png)
 
 ## Installation
 
@@ -23,6 +25,7 @@ Or install it yourself as:
 ## Usage
 
 Call `Initials.svg("Morty Smith")` anywhere to get a colorful initials avatar SVG as string.
+The avatar's background color is based on the provided name and the font-size is adjusted to fit between one and three character initials.
 
 ### Rails
 
