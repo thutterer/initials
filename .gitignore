@@ -12,3 +12,5 @@
 
 # SimpleCov reports
 coverage
+
+Gemfile.lock
