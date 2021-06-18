@@ -1,7 +1,8 @@
 RSpec.describe Initials::SVG do
-  subject(:rick) { described_class.new("Rick Sanchez") }
+  subject(:rick) { described_class.new("Rick Sanchez", **options) }
   let(:morty) { described_class.new("Morty Smith") }
   let(:birdperson) { described_class.new("Birdperson") }
+  let(:options) { {} }
 
   describe "#fill" do
     it "is a color in HSL format" do
@@ -33,9 +34,28 @@ RSpec.describe Initials::SVG do
     it "is the initials of given name" do
       expect(rick.initials).to eq "RS"
     end
+  end
 
-    it "is never longer than 3 characters" do
-      expect(described_class.new("Ants in my Eyes Johnson").initials.length).to eq 3
+  describe "config options" do
+    describe "limit" do
+      let(:options) { {limit: 1} }
+
+      it "defaults to 3" do
+        expect(described_class.new("Ants in my Eyes Johnson").initials.length).to eq 3
+      end
+
+      it "changes initials max length" do
+        expect(subject.initials.length).to eq 1
+      end
+    end
+
+    describe "size" do
+      let(:options) { {size: 512} }
+
+      it "changes SVG height and width" do
+        expect(subject.to_s).to match(/^<svg .*height='512'.+<\/svg>/)
+        expect(subject.to_s).to match(/^<svg .*width='512'.+<\/svg>/)
+      end
     end
   end
 end

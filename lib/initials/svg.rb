@@ -1,10 +1,11 @@
 module Initials
   class SVG
-    attr_reader :name, :size
+    attr_reader :name, :limit, :size
 
-    def initialize(name, size: 32)
+    def initialize(name, limit: 3, size: 32)
       raise Initials::Error.new("Name is not a string or empty") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
       @name = name
+      @limit = limit
       @size = size
     end
 
@@ -31,7 +32,7 @@ module Initials
     end
 
     def initials
-      name.split(' ')[0, 3].map { |s| s[0].capitalize }.join
+      name.split(' ')[0, limit].map { |s| s[0].capitalize }.join
     end
   end
 end

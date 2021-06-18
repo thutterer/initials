@@ -49,11 +49,14 @@ Initials automatically marks its created SVG strings as `html_safe`.
 
 You can pass the following options into `Initials.svg` or your `user_avatar` helper:
 
-```rb
-user_avatar(current_user.name, size: 96)
+```ruby
+user_avatar(current_user.name, 
+  limit: 1, # sets max length for initials
+  size: 96  # sets SVG height and width in pixel
+)
 ```
 
-This sets `width` and `height` to `96px` in the SVG. Of course, you can also use CSS to make the SVG have different sizes in different places of your HTML.
+Of course, you can also use CSS to make the SVG have different sizes in different places of your HTML.
 
 ## Development
 
