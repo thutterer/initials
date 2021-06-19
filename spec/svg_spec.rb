@@ -71,6 +71,18 @@ RSpec.describe Initials::SVG do
       end
     end
 
+    describe "shape" do
+      let(:options) { {shape: :rect} }
+      
+      it "defaults to circle" do
+        expect(morty.to_s).to match /<circle/
+      end
+
+      it "can be changed to rect" do
+        expect(rick.to_s).to match /<rect/
+      end
+    end
+
     describe "size" do
       let(:options) { {size: 512} }
 

@@ -51,9 +51,10 @@ You can pass the following options into `Initials.svg` or your `user_avatar` hel
 
 ```ruby
 user_avatar(current_user.name,
-  colors: 8, # sets number of different colors, default: 12
-  limit: 1,  # sets max length for initials, default: 3
-  size: 96   # sets SVG height and width in pixel, default: 32
+  colors: 8,    # number of different colors, default: 12
+  limit: 1,     # maximal initials length, default: 3
+  shape: :rect, # background shape, default: :cirlce
+  size: 96      # SVG height and width in pixel, default: 32
 )
 ```
 

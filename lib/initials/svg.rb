@@ -2,12 +2,13 @@ module Initials
   class SVG
     HUE_WHEEL = 360
 
-    attr_reader :name, :colors, :limit, :size
+    attr_reader :name, :colors, :limit, :shape, :size
 
-    def initialize(name, colors: 12, limit: 3, size: 32)
+    def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32)
       @name = name
       @colors = colors
       @limit = limit
+      @shape = shape
       @size = size
 
       raise Initials::Error.new("Name is not a string or empty.") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
@@ -18,7 +19,10 @@ module Initials
     def to_s
       svg = [
         "<svg width='#{size}' height='#{size}'>",
-          "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}' />",
+          shape == :rect ?
+            "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}' />"
+          :
+            "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}' />",
           "<text x='50%' y='50%' fill='white' fill-opacity='0.75' dominant-baseline='central' text-anchor='middle' style='font-size: #{font_size}px; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif; user-select: none;'>",
             "#{initials}",
           "</text>",
