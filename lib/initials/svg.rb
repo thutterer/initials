@@ -1,12 +1,18 @@
 module Initials
   class SVG
-    attr_reader :name, :limit, :size
+    HUE_WHEEL = 360
 
-    def initialize(name, limit: 3, size: 32)
-      raise Initials::Error.new("Name is not a string or empty") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
+    attr_reader :name, :colors, :limit, :size
+
+    def initialize(name, colors: 12, limit: 3, size: 32)
       @name = name
+      @colors = colors
       @limit = limit
       @size = size
+
+      raise Initials::Error.new("Name is not a string or empty.") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
+      raise Initials::Error.new("Colors must be a divider of 360 e.g. 24 but not 16.") unless valid_colors?
+      raise Initials::Error.new("Size is not a positive integer.") unless valid_size?
     end
 
     def to_s
@@ -23,7 +29,15 @@ module Initials
     end
 
     def fill
-      hue = name.split("").sum { |c| c.ord } % 360
+      hue_step = HUE_WHEEL / colors
+      char_sum = name.split("").sum do |c|
+        # Multiplication makes sure neighboring characters (like A and B) are one hue step apart.
+        c.ord * hue_step
+      end
+
+      # Spin the wheel!
+      hue = char_sum % HUE_WHEEL
+      
       "hsl(#{hue}, 40%, 40%)"
     end
 
@@ -33,6 +47,19 @@ module Initials
 
     def initials
       name.split(' ')[0, limit].map { |s| s[0].capitalize }.join
+    end
+
+    private
+
+    def valid_colors?
+      return false unless colors.respond_to?(:to_i)
+      return false unless colors > 0
+      HUE_WHEEL % colors == 0
+    end
+
+    def valid_size?
+      return false unless size.respond_to?(:to_i)
+      size.to_i > 0
     end
   end
 end

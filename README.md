@@ -50,9 +50,10 @@ Initials automatically marks its created SVG strings as `html_safe`.
 You can pass the following options into `Initials.svg` or your `user_avatar` helper:
 
 ```ruby
-user_avatar(current_user.name, 
-  limit: 1, # sets max length for initials
-  size: 96  # sets SVG height and width in pixel
+user_avatar(current_user.name,
+  colors: 8, # sets number of different colors, default: 12
+  limit: 1,  # sets max length for initials, default: 3
+  size: 96   # sets SVG height and width in pixel, default: 32
 )
 ```
 

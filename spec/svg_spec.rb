@@ -37,6 +37,28 @@ RSpec.describe Initials::SVG do
   end
 
   describe "config options" do
+    describe "colors" do
+      it "sets number of different hues" do
+        colors = []
+        50.times do
+          colors << described_class.new(rand(99999).to_s, colors: 3).fill
+        end
+        expect(colors.uniq.length).to be <= 3
+      end
+
+      [-1, 0, 7, 16, 720].each do |colors|
+        it "validates divisor of 360 (#{colors} is invalid)" do
+          expect { described_class.new("Rick", colors: colors) }.to raise_error Initials::Error
+        end
+      end
+
+      [6, 12, 60, 360].each do |colors|
+        it "validates divisor of 360 (#{colors} is valid)" do
+          expect { described_class.new("Rick", colors: colors) }.not_to raise_error
+        end
+      end
+    end
+    
     describe "limit" do
       let(:options) { {limit: 1} }
 
@@ -55,6 +77,18 @@ RSpec.describe Initials::SVG do
       it "changes SVG height and width" do
         expect(subject.to_s).to match(/^<svg .*height='512'.+<\/svg>/)
         expect(subject.to_s).to match(/^<svg .*width='512'.+<\/svg>/)
+      end
+
+      [-1, 0, nil].each do |size|
+        it "validates positive integer (#{size} is invalid)" do
+          expect { described_class.new("Rick", size: size) }.to raise_error Initials::Error
+        end
+      end
+
+      [1, 32, 512].each do |size|
+        it "validates positive integer (#{size} is valid)" do
+          expect { described_class.new("Rick", size: size) }.not_to raise_error
+        end
       end
     end
   end
