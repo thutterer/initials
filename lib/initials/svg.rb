@@ -5,15 +5,18 @@ module Initials
     attr_reader :name, :colors, :limit, :shape, :size
 
     def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32)
-      @name = name
+      @name = name.to_s.strip
       @colors = colors
       @limit = limit
       @shape = shape
       @size = size
 
-      raise Initials::Error.new("Name is not a string or empty.") unless (name.respond_to?(:to_s) && name.to_s.length > 0)
       raise Initials::Error.new("Colors must be a divider of 360 e.g. 24 but not 16.") unless valid_colors?
       raise Initials::Error.new("Size is not a positive integer.") unless valid_size?
+    end
+
+    def name
+      @name.empty? ? "?" : @name
     end
 
     def to_s
@@ -33,6 +36,8 @@ module Initials
     end
 
     def fill
+      return "hsl(0, 0%, 67%)" if @name.empty?
+
       hue_step = HUE_WHEEL / colors
       char_sum = name.split("").sum do |c|
         # Multiplication makes sure neighboring characters (like A and B) are one hue step apart.
@@ -41,7 +46,7 @@ module Initials
 
       # Spin the wheel!
       hue = char_sum % HUE_WHEEL
-      
+
       "hsl(#{hue}, 40%, 40%)"
     end
 

@@ -58,7 +58,7 @@ RSpec.describe Initials::SVG do
         end
       end
     end
-    
+
     describe "limit" do
       let(:options) { {limit: 1} }
 
@@ -73,7 +73,7 @@ RSpec.describe Initials::SVG do
 
     describe "shape" do
       let(:options) { {shape: :rect} }
-      
+
       it "defaults to circle" do
         expect(morty.to_s).to match /<circle/
       end
@@ -100,6 +100,28 @@ RSpec.describe Initials::SVG do
       [1, 32, 512].each do |size|
         it "validates positive integer (#{size} is valid)" do
           expect { described_class.new("Rick", size: size) }.not_to raise_error
+        end
+      end
+    end
+  end
+
+  describe "name handling" do
+    it "trims whitespace" do
+      expect(described_class.new("   Morty  ").name).to eq "Morty"
+    end
+
+    {"nil" => nil, "an empty string" => "", "a string with only whitespace": "   "}.each do |key, value|
+      context "when initialized with #{key}" do
+        it "doesn't raise an error" do
+          expect { described_class.new(value) }.not_to raise_error
+        end
+
+        it "uses a grey background" do
+          expect(described_class.new(value).fill).to eq "hsl(0, 0%, 67%)"
+        end
+
+        it "uses a question mark as initials" do
+          expect(described_class.new(value).initials).to eq "?"
         end
       end
     end
