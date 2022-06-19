@@ -83,6 +83,12 @@ RSpec.describe Initials::SVG do
       end
     end
 
+    describe "svg tag" do
+      it "has valid xmlns attribute" do
+        expect(subject.to_s).to match(/^<svg xmlns='http:\/\/www.w3.org\/2000\/svg'.+<\/svg>/)
+      end
+    end
+
     describe "size" do
       let(:options) { {size: 512} }
 

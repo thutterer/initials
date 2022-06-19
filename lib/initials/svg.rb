@@ -21,7 +21,7 @@ module Initials
 
     def to_s
       svg = [
-        "<svg width='#{size}' height='#{size}'>",
+        "<svg xmlns='http://www.w3.org/2000/svg' width='#{size}' height='#{size}'>",
           shape == :rect ?
             "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}' />"
           :
