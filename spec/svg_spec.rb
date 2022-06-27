@@ -103,6 +103,26 @@ RSpec.describe Initials::SVG do
         end
       end
     end
+
+    describe "font_size_multiplier" do
+      let(:options) { {font_size_multiplier: 1.5} }
+
+      it "changes SVG font-size" do
+        expect(subject.to_s).to match(/^<svg .*font-size: 21px.+<\/svg>/)
+      end
+
+      [-1, -0.01, nil, 2.1].each do |font_size_multiplier|
+        it "validates positive integer (#{font_size_multiplier} is invalid)" do
+          expect { described_class.new("Rick", font_size_multiplier: font_size_multiplier) }.to raise_error Initials::Error
+        end
+      end
+
+      [0.5, 1, 1.2].each do |font_size_multiplier|
+        it "validates positive integer (#{font_size_multiplier} is valid)" do
+          expect { described_class.new("Rick", font_size_multiplier: font_size_multiplier) }.not_to raise_error
+        end
+      end
+    end
   end
 
   describe "name handling" do
