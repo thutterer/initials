@@ -4,12 +4,13 @@ module Initials
 
     attr_reader :name, :colors, :limit, :shape, :size
 
-    def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32)
+    def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32, css: nil)
       @name = name.to_s.strip
       @colors = colors
       @limit = limit
       @shape = shape
       @size = size
+      @css = css
 
       raise Initials::Error.new("Colors must be a divider of 360 e.g. 24 but not 16.") unless valid_colors?
       raise Initials::Error.new("Size is not a positive integer.") unless valid_size?
@@ -21,7 +22,7 @@ module Initials
 
     def to_s
       svg = [
-        "<svg xmlns='http://www.w3.org/2000/svg' width='#{size}' height='#{size}'>",
+        "<svg xmlns='http://www.w3.org/2000/svg' width='#{size}' height='#{size}' #{css_class}>",
           shape == :rect ?
             "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}' />"
           :
@@ -56,6 +57,12 @@ module Initials
 
     def initials
       name.split(' ')[0, limit].map { |s| s[0].capitalize }.join
+    end
+
+    def css_class
+      return unless @css
+
+      "class='#{@css}'"
     end
 
     private
