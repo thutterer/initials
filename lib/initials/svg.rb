@@ -2,14 +2,22 @@ module Initials
   class SVG
     HUE_WHEEL = 360
 
-    attr_reader :name, :colors, :limit, :shape, :size
+    attr_reader :name, :colors, :limit, :shape, :size, :title
 
-    def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32)
+    def initialize(name, colors: 12, limit: 3, shape: :circle, size: 32, title: nil)
       @name = name.to_s.strip
       @colors = colors
       @limit = limit
       @shape = shape
       @size = size
+      @title = case title
+               when TrueClass
+                 @name
+               when FalseClass, NilClass
+                 nil
+               else
+                 title.to_s.strip
+               end
 
       raise Initials::Error.new("Colors must be a divider of 360 e.g. 24 but not 16.") unless valid_colors?
       raise Initials::Error.new("Size is not a positive integer.") unless valid_size?
@@ -23,14 +31,16 @@ module Initials
       svg = [
         "<svg xmlns='http://www.w3.org/2000/svg' width='#{size}' height='#{size}'>",
           shape == :rect ?
-            "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}' />"
+            "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}'>"
           :
-            "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}' />",
+            "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}'>",
+          @title ? "<title>#{@title}</title>" : nil,
+          shape == :rect ? '</rect>' : '</circle>',
           "<text x='50%' y='50%' fill='white' fill-opacity='0.75' dominant-baseline='central' text-anchor='middle' style='font-size: #{font_size}px; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif; user-select: none;'>",
             "#{initials}",
           "</text>",
         "</svg>"
-      ].join
+      ].compact.join
 
       svg.html_safe rescue svg
     end
@@ -63,11 +73,13 @@ module Initials
     def valid_colors?
       return false unless colors.respond_to?(:to_i)
       return false unless colors > 0
+
       HUE_WHEEL % colors == 0
     end
 
     def valid_size?
       return false unless size.respond_to?(:to_i)
+
       size.to_i > 0
     end
   end
