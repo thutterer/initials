@@ -30,12 +30,11 @@ module Initials
     def to_s
       svg = [
         "<svg xmlns='http://www.w3.org/2000/svg' width='#{size}' height='#{size}'>",
-          shape == :rect ?
-            "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}'>"
-          :
-            "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}'>",
           @title ? "<title>#{@title}</title>" : nil,
-          shape == :rect ? '</rect>' : '</circle>',
+          shape == :rect ?
+            "<rect width='#{size}' height='#{size}' rx='#{size / 32}' ry='#{size / 32}' fill='#{fill}' />"
+          :
+            "<circle cx='#{size / 2}' cy='#{size / 2}' r='#{size / 2}' fill='#{fill}' />",
           "<text x='50%' y='50%' fill='white' fill-opacity='0.75' dominant-baseline='central' text-anchor='middle' style='font-size: #{font_size}px; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif; user-select: none;'>",
             "#{initials}",
           "</text>",
