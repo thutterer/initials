@@ -83,6 +83,26 @@ RSpec.describe Initials::SVG do
       end
     end
 
+    describe "title" do
+      let(:options) { { title: true } }
+
+      it 'default to nil' do
+        expect(morty.to_s).not_to match /<title/
+      end
+
+      it 'default to nil' do
+        expect(described_class.new("Morty", title: false).to_s).not_to match /<title/
+      end
+
+      it "can be changed to name" do
+        expect(rick.to_s).to match /<title>Rick Sanchez<\/title>/
+      end
+
+      it "can be changed to custom title" do
+        expect(described_class.new("Rick", title: 'wubba lubba dub dub').to_s).to match(/<title>wubba lubba dub dub<\/title>/)
+      end
+    end
+
     describe "svg tag" do
       it "has valid xmlns attribute" do
         expect(subject.to_s).to match(/^<svg xmlns='http:\/\/www.w3.org\/2000\/svg'.+<\/svg>/)
